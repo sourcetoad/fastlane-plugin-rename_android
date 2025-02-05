@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: 2.7.7
+
+      - name: Run tests
+        run: bundle exec rake
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results

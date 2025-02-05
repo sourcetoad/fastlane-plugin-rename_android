@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 
 require 'simplecov'
 
@@ -10,6 +10,6 @@ module SpecHelper
 end
 
 require 'fastlane' # to import the Action super class
-require 'fastlane/plugin/rename_android_package' # import the actual plugin
+require 'fastlane/plugin/rename_android' # import the actual plugin
 
 Fastlane.load_actions # load other actions (in case your plugin calls other actions or shared values)

@@ -1,19 +1,19 @@
-# rename_android_package plugin
+# rename_android fastlane plugin
+_Forked from [joshdholtz/fastlane-plugin-rename_android_package](https://github.com/joshdholtz/fastlane-plugin-rename_android_package) due to abandonment._
 
-[![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-rename_android_package)
+[![Gem Version](https://badge.fury.io/rb/fastlane-plugin-rename_android.svg)](https://badge.fury.io/rb/fastlane-plugin-rename_android)
 
 ## Getting Started
 
-This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-rename_android_package`, add it to your project by running:
+This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To get started with `fastlane-plugin-rename_android`, add it to your project by running:
 
 ```bash
-fastlane add_plugin rename_android_package
+fastlane add_plugin rename_android
 ```
 
-## About rename_android_package
+## About rename_android
 
-Renames Android package
-
+Renames Android package for .java, .kt, AndroidManifest.xml, and build.gradle files
 
 ## Example
 
