@@ -20,7 +20,7 @@ Renames Android package for .java, .kt, AndroidManifest.xml, and build.gradle fi
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
 ```rb
-rename_android_package(                                                                                                                                                                                                                                                              
+rename_android(                                                                                                                                                                                                                                                              
   path: "./",                                                                                                                                                                                                                                                                        
   package_name: "com.joshholtz.fastlane.app",                                                                                                                                                                                                                                        
   new_package_name: "com.newjoshholtz.fastlane.app"                                                                                                                                                                                                                                  
