@@ -1,10 +1,17 @@
 require 'fastlane/action'
-require_relative '../helper/rename_android_package_helper'
+require 'fastlane_core/configuration/config_item'
+require 'fastlane_core/ui/ui'
 
 module Fastlane
+  UI = FastlaneCore::UI unless Fastlane.const_defined?(:UI)
+
   module Actions
-    class RenameAndroidPackageAction < Action
+    class RenameAndroidAction < Action
       def self.run(params)
+        UI.user_error!("No path provided") if params[:path].nil?
+        UI.user_error!("No package_name provided") if params[:package_name].nil?
+        UI.user_error!("No new_package_name provided") if params[:new_package_name].nil?
+
         path = params[:path]
         package_name = params[:package_name]
         new_package_name = params[:new_package_name]
@@ -13,32 +20,32 @@ module Fastlane
         new_folder = new_package_name.gsub('.', '/')
         new_folder_path = "#{path}/app/src/main/java/#{new_folder}"
 
-        FileUtils::mkdir_p new_folder_path
+        FileUtils.mkdir_p(new_folder_path)
 
         java_sources = Dir.glob("#{path}/app/src/main/java/#{folder}/*.java")
         java_sources.each do |file|
-          FileUtils.mv file, new_folder_path
+          FileUtils.mv(file, new_folder_path)
         end
 
         kotlin_sources = Dir.glob("#{path}/app/src/main/java/#{folder}/*.kt")
         kotlin_sources.each do |file|
-          FileUtils.mv file, new_folder_path
+          FileUtils.mv(file, new_folder_path)
         end
 
-        Bundler.with_clean_env do
-          sh "find #{path}/app/src -name '*.java' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;"
-          sh "find #{path}/app/src -name '*.kt' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;"
-          sh "find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;"
-          sh "find #{path}/app -name 'build.gradle' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;"
+        Bundler.with_unbundled_env do
+          sh("find #{path}/app/src -name '*.java' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
+          sh("find #{path}/app/src -name '*.kt' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
+          sh("find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
+          sh("find #{path}/app -name 'build.gradle' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
         end
       end
 
       def self.description
-        "Renames Android package"
+        "Renames Android package for .java, .kt, AndroidManifest.xml, and build.gradle files"
       end
 
       def self.authors
-        ["joshdholtz"]
+        %w[joshdholtz sourcetoad]
       end
 
       def self.details
