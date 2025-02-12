@@ -40,10 +40,10 @@ module Fastlane
         end
 
         Bundler.with_clean_env do
-          sh "find #{path}/app/src -name '*.java' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
-          sh "find #{path}/app/src -name '*.kt' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
-          sh "find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
-          sh "find #{path}/app -name 'build.gradle' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
+          sh("find #{path}/app/src -name '*.java' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
+          sh("find #{path}/app/src -name '*.kt' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
+          sh("find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
+          sh("find #{path}/app -name 'build.gradle' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
         end
       end
 
