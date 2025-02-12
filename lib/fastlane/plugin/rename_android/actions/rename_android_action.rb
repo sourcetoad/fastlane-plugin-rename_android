@@ -32,11 +32,18 @@ module Fastlane
           FileUtils.mv(file, new_folder_path)
         end
 
-        Bundler.with_unbundled_env do
-          sh("find #{path}/app/src -name '*.java' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
-          sh("find #{path}/app/src -name '*.kt' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
-          sh("find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
-          sh("find #{path}/app -name 'build.gradle' -type f -exec sed -i '' 's/#{package_name}/#{new_package_name}/' {} \\;")
+        # Determine the correct sed command based on OSTYPE
+        if RUBY_PLATFORM.include?('darwin')
+          sed_command = "sed -i ''"
+        else
+          sed_command = "sed -i"
+        end
+
+        Bundler.with_clean_env do
+          sh "find #{path}/app/src -name '*.java' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
+          sh "find #{path}/app/src -name '*.kt' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
+          sh "find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
+          sh "find #{path}/app -name 'build.gradle' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +"
         end
       end
 
