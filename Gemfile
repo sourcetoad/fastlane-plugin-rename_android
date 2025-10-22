@@ -3,6 +3,7 @@ source('https://rubygems.org')
 gemspec
 
 # Add development dependencies here
+gem 'abbrev'
 gem 'fastlane', '>= 2.225.0'
 gem 'pry'
 gem 'rake'
