@@ -39,7 +39,7 @@ module Fastlane
           sed_command = "sed -i"
         end
 
-        Bundler.with_clean_env do
+        Bundler.with_unbundled_env do
           sh("find #{path}/app/src -name '*.java' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
           sh("find #{path}/app/src -name '*.kt' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
           sh("find #{path}/app/src -name 'AndroidManifest.xml' -type f -exec #{sed_command} 's/#{package_name}/#{new_package_name}/g' {} +")
