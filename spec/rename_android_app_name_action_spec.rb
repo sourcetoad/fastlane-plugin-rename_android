@@ -3,7 +3,7 @@ require 'fileutils'
 require 'tmpdir'
 require 'ox'
 
-describe Fastlane::Actions::AndroidChangeNameAction do
+describe Fastlane::Actions::RenameAndroidAppNameAction do
   describe '#run' do
     let(:test_path) { Dir.mktmpdir }
     let(:manifest_path) { "#{test_path}/AndroidManifest.xml" }
@@ -35,7 +35,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     it 'updates the app name in the manifest' do
       params = { new_name: new_name, manifest: manifest_path }
 
-      Fastlane::Actions::AndroidChangeNameAction.run(params)
+      Fastlane::Actions::RenameAndroidAppNameAction.run(params)
 
       updated_xml = File.read(manifest_path)
       expect(updated_xml).to include(new_name)
@@ -45,7 +45,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     it 'produces valid XML after updating' do
       params = { new_name: new_name, manifest: manifest_path }
 
-      Fastlane::Actions::AndroidChangeNameAction.run(params)
+      Fastlane::Actions::RenameAndroidAppNameAction.run(params)
 
       updated_xml = File.read(manifest_path)
       expect { Ox.parse(updated_xml) }.not_to raise_error
@@ -54,7 +54,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     it 'preserves other attributes in the application element' do
       params = { new_name: new_name, manifest: manifest_path }
 
-      Fastlane::Actions::AndroidChangeNameAction.run(params)
+      Fastlane::Actions::RenameAndroidAppNameAction.run(params)
 
       updated_xml = File.read(manifest_path)
       expect(updated_xml).to include('@mipmap/ic_launcher')
@@ -63,7 +63,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     it 'preserves child elements of the manifest' do
       params = { new_name: new_name, manifest: manifest_path }
 
-      Fastlane::Actions::AndroidChangeNameAction.run(params)
+      Fastlane::Actions::RenameAndroidAppNameAction.run(params)
 
       updated_xml = File.read(manifest_path)
       expect(updated_xml).to include('.MainActivity')
@@ -80,14 +80,14 @@ describe Fastlane::Actions::AndroidChangeNameAction do
 
       params = { new_name: new_name, manifest: manifest_path }
 
-      expect { Fastlane::Actions::AndroidChangeNameAction.run(params) }.not_to raise_error
+      expect { Fastlane::Actions::RenameAndroidAppNameAction.run(params) }.not_to raise_error
     end
 
     it 'handles special characters in the new name' do
       special_name = "My App & \"Friends\" <3"
       params = { new_name: special_name, manifest: manifest_path }
 
-      Fastlane::Actions::AndroidChangeNameAction.run(params)
+      Fastlane::Actions::RenameAndroidAppNameAction.run(params)
 
       updated_xml = File.read(manifest_path)
       expect { Ox.parse(updated_xml) }.not_to raise_error
@@ -105,7 +105,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
       XML
       doc = Ox.parse(xml)
 
-      results = Fastlane::Actions::AndroidChangeNameAction.find_elements(doc, 'target')
+      results = Fastlane::Actions::RenameAndroidAppNameAction.find_elements(doc, 'target')
       expect(results.length).to eq(1)
       expect(results.first.name).to eq('target')
     end
@@ -119,7 +119,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
       XML
       doc = Ox.parse(xml)
 
-      results = Fastlane::Actions::AndroidChangeNameAction.find_elements(doc, 'item')
+      results = Fastlane::Actions::RenameAndroidAppNameAction.find_elements(doc, 'item')
       expect(results.length).to eq(2)
     end
 
@@ -127,19 +127,19 @@ describe Fastlane::Actions::AndroidChangeNameAction do
       xml = '<root><other>value</other></root>'
       doc = Ox.parse(xml)
 
-      results = Fastlane::Actions::AndroidChangeNameAction.find_elements(doc, 'missing')
+      results = Fastlane::Actions::RenameAndroidAppNameAction.find_elements(doc, 'missing')
       expect(results).to be_empty
     end
   end
 
   describe '.is_supported?' do
     it 'returns true for android platform' do
-      expect(Fastlane::Actions::AndroidChangeNameAction.is_supported?(:android)).to be true
+      expect(Fastlane::Actions::RenameAndroidAppNameAction.is_supported?(:android)).to be true
     end
 
     it 'returns false for other platforms' do
-      expect(Fastlane::Actions::AndroidChangeNameAction.is_supported?(:ios)).to be false
-      expect(Fastlane::Actions::AndroidChangeNameAction.is_supported?(:mac)).to be false
+      expect(Fastlane::Actions::RenameAndroidAppNameAction.is_supported?(:ios)).to be false
+      expect(Fastlane::Actions::RenameAndroidAppNameAction.is_supported?(:mac)).to be false
     end
   end
 end

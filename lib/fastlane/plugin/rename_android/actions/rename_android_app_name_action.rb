@@ -8,7 +8,7 @@ require 'fastlane_core/ui/ui'
 
 module Fastlane
   module Actions
-    class AndroidChangeNameAction < Action
+    class RenameAndroidAppNameAction < Action
       def self.run(params)
         require 'ox'
 
