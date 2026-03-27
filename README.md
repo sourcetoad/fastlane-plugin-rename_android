@@ -11,21 +11,41 @@ This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To 
 fastlane add_plugin rename_android
 ```
 
-## About rename_android
+## Actions
 
-Renames Android package for .java, .kt, AndroidManifest.xml, and build.gradle files
+### rename_android
 
-## Example
-
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
+Renames the Android package name across `.java`, `.kt`, `AndroidManifest.xml`, and `build.gradle` files.
 
 ```rb
-rename_android(                                                                                                                                                                                                                                                              
-  path: "./",                                                                                                                                                                                                                                                                        
-  package_name: "com.joshholtz.fastlane.app",                                                                                                                                                                                                                                        
-  new_package_name: "com.newjoshholtz.fastlane.app"                                                                                                                                                                                                                                  
+rename_android(
+  path: "./",
+  package_name: "com.example.oldapp",
+  new_package_name: "com.example.newapp"
 )
 ```
+
+| Parameter | Description | Required | Default |
+|---|---|---|---|
+| `path` | Path to the Android project root | Yes | |
+| `package_name` | The current package name | Yes | |
+| `new_package_name` | The new package name | Yes | |
+
+### rename_android_app_name
+
+Changes the `android:label` attribute in the `AndroidManifest.xml` file. This is the display name of the app.
+
+```rb
+rename_android_app_name(
+  new_name: "My New App Name",
+  manifest: "app/src/main/AndroidManifest.xml"
+)
+```
+
+| Parameter | Description | Required | Default |
+|---|---|---|---|
+| `new_name` | The new display name for the app | No | |
+| `manifest` | Path to the AndroidManifest.xml file | No | `app/src/main/AndroidManifest.xml` |
 
 ## Run tests for this plugin
 
