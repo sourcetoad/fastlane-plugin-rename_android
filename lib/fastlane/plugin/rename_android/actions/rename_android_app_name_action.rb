@@ -65,7 +65,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :manifest,
                                        env_name: "FL_RENAME_ANDROID_PACKAGE_ANDROID_MANIFEST_PATH",
                                        description: "Optional custom location for AndroidManifest.xml",
-                                       optional: false,
+                                       optional: true,
                                        type: String,
                                        default_value: "app/src/main/AndroidManifest.xml")
         ]
