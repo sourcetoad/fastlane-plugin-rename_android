@@ -2,21 +2,25 @@
 # Updated to use Ox XML parser instead of Nokogiri.
 # Removed the reverting functionality.
 
+require 'fastlane/action'
+require 'fastlane_core/configuration/config_item'
+require 'fastlane_core/ui/ui'
+
 module Fastlane
   module Actions
     class AndroidChangeNameAction < Action
       def self.run(params)
         require 'ox'
 
-        newName = params[:newName]
+        new_name = params[:new_name]
         manifest = params[:manifest]
 
         xml = File.read(manifest)
         doc = Ox.parse(xml)
 
         find_elements(doc, 'application').each do |app_node|
-          app_node['android:label'] = newName
-          UI.message("Updating app name to: #{newName}")
+          app_node['android:label'] = new_name
+          FastlaneCore::UI.message("Updating app name to: #{new_name}")
         end
 
         File.write(manifest, Ox.dump(doc, indent: 2))
@@ -53,7 +57,7 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :newName,
+          FastlaneCore::ConfigItem.new(key: :new_name,
                                        env_name: "FL_RENAME_ANDROID_PACKAGE_NEW_APP_NAME",
                                        description: "The new name for the app",
                                        optional: true,

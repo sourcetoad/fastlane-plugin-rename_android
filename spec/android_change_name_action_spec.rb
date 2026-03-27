@@ -33,7 +33,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     end
 
     it 'updates the app name in the manifest' do
-      params = { newName: new_name, manifest: manifest_path }
+      params = { new_name: new_name, manifest: manifest_path }
 
       Fastlane::Actions::AndroidChangeNameAction.run(params)
 
@@ -43,7 +43,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     end
 
     it 'produces valid XML after updating' do
-      params = { newName: new_name, manifest: manifest_path }
+      params = { new_name: new_name, manifest: manifest_path }
 
       Fastlane::Actions::AndroidChangeNameAction.run(params)
 
@@ -52,7 +52,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     end
 
     it 'preserves other attributes in the application element' do
-      params = { newName: new_name, manifest: manifest_path }
+      params = { new_name: new_name, manifest: manifest_path }
 
       Fastlane::Actions::AndroidChangeNameAction.run(params)
 
@@ -61,7 +61,7 @@ describe Fastlane::Actions::AndroidChangeNameAction do
     end
 
     it 'preserves child elements of the manifest' do
-      params = { newName: new_name, manifest: manifest_path }
+      params = { new_name: new_name, manifest: manifest_path }
 
       Fastlane::Actions::AndroidChangeNameAction.run(params)
 
@@ -78,14 +78,14 @@ describe Fastlane::Actions::AndroidChangeNameAction do
       XML
       File.write(manifest_path, minimal_xml)
 
-      params = { newName: new_name, manifest: manifest_path }
+      params = { new_name: new_name, manifest: manifest_path }
 
       expect { Fastlane::Actions::AndroidChangeNameAction.run(params) }.not_to raise_error
     end
 
     it 'handles special characters in the new name' do
       special_name = "My App & \"Friends\" <3"
-      params = { newName: special_name, manifest: manifest_path }
+      params = { new_name: special_name, manifest: manifest_path }
 
       Fastlane::Actions::AndroidChangeNameAction.run(params)
 
