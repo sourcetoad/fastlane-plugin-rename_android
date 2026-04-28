@@ -25,11 +25,11 @@ rename_android(
 )
 ```
 
-| Parameter | Description | Required | Default |
-|---|---|---|---|
-| `path` | Path to the Android project root | Yes | |
-| `package_name` | The current package name | Yes | |
-| `new_package_name` | The new package name | Yes | |
+| Parameter          | Description                      | Required | Default |
+|--------------------|----------------------------------|----------|---------|
+| `path`             | Path to the Android project root | Yes      |         |
+| `package_name`     | The current package name         | Yes      |         |
+| `new_package_name` | The new package name             | Yes      |         |
 
 ### rename_android_app_name
 
@@ -42,22 +42,22 @@ rename_android_app_name(
 )
 ```
 
-| Parameter | Description | Required | Default |
-|---|---|---|---|
-| `new_name` | The new display name for the app | No | |
-| `manifest` | Path to the AndroidManifest.xml file | No | `app/src/main/AndroidManifest.xml` |
+| Parameter  | Description                          | Required | Default                            |
+|------------|--------------------------------------|----------|------------------------------------|
+| `new_name` | The new display name for the app     | No       |                                    |
+| `manifest` | Path to the AndroidManifest.xml file | No       | `app/src/main/AndroidManifest.xml` |
 
 ## Run tests for this plugin
 
 To run both the tests, and code style validation, run
 
 ```
-rake
+bundle exec rake
 ```
 
 To automatically fix many of the styling issues, use
 ```
-rubocop -a
+bundle exec rubocop -a
 ```
 
 ## Issues and Feedback
