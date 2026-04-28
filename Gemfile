@@ -5,6 +5,7 @@ gemspec
 # Add development dependencies here
 gem 'abbrev'
 gem 'fastlane', '>= 2.225.0'
+gem 'mutex_m'
 gem 'pry'
 gem 'rake'
 gem 'rspec'
