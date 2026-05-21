@@ -16,6 +16,11 @@ module Fastlane
         package_name = params[:package_name]
         new_package_name = params[:new_package_name]
 
+        if package_name == new_package_name
+          UI.message("Old and new package names are the same, nothing to do")
+          return 0
+        end
+
         folder = package_name.gsub('.', '/')
         new_folder = new_package_name.gsub('.', '/')
         new_folder_path = "#{path}/app/src/main/java/#{new_folder}"

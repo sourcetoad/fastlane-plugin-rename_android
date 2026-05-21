@@ -159,6 +159,19 @@ describe Fastlane::Actions::RenameAndroidAction do
         Fastlane::Actions::RenameAndroidAction.run(params)
       end.to raise_error(FastlaneCore::Interface::FastlaneError, "No new_package_name provided")
     end
+
+    it 'returns 0 and does nothing if package names are the same' do
+      params = {
+        path: test_path,
+        package_name: old_package,
+        new_package_name: old_package
+      }
+
+      expect(Fastlane::UI).to receive(:message).with("Old and new package names are the same, nothing to do")
+      result = Fastlane::Actions::RenameAndroidAction.run(params)
+
+      expect(result).to eq(0)
+    end
   end
 
   describe '.is_supported?' do
